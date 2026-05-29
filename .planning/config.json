@@ -1,0 +1,82 @@
+{
+  "mode": "yolo",
+  "granularity": "coarse",
+  "parallelization": true,
+  "commit_docs": true,
+  "model_profile": "quality",
+  "project": {
+    "name": "llm-gateway-advisor",
+    "updated_at": "2026-05-29",
+    "goal": "实现一个桥接 Claude Code/Codex/OpenCode 等 Coding Agent 和 DeepSeek/OpenAI/Anthropic/OpenRouter/GLM 等 LLM provider 的 API 网关，并在网关内实现 advisor 编排能力。",
+    "product_positioning": "advisor-orchestrating local gateway",
+    "primary_ingress": {
+      "protocol": "Anthropic Messages API-compatible",
+      "path": "/v1/messages",
+      "priority": "v1"
+    },
+    "primary_agent": "Claude Code"
+  },
+  "decisions": {
+    "streaming_required_in_v1": true,
+    "advisor_tool_goal": "behaviorally equivalent, not full official schema compatibility",
+    "tech_stack_locked": false,
+    "tech_stack_candidates": [
+      "Python",
+      "FastAPI",
+      "LiteLLM"
+    ],
+    "must_run_protocol_and_streaming_spike_first": true,
+    "provider_adapter_boundary_required": true,
+    "canonical_transcript_required": true
+  },
+  "workflow": {
+    "research": true,
+    "plan_check": true,
+    "verifier": true,
+    "nyquist_validation": false
+  },
+  "ship": {
+    "pr_body_sections": [
+      {
+        "heading": "User Stories & Acceptance Criteria",
+        "enabled": true,
+        "source": "REQUIREMENTS.md ## User Stories || REQUIREMENTS.md ## Acceptance Criteria",
+        "fallback": "- Acceptance criteria are covered by the linked requirements and verification evidence."
+      },
+      {
+        "heading": "Risks & Dependencies",
+        "enabled": true,
+        "source": "PLAN.md ## Risks || PLAN.md ## Dependencies",
+        "fallback": "- No known high-risk rollout dependencies."
+      },
+      {
+        "heading": "Success Metrics & Release Criteria",
+        "enabled": true,
+        "source": "REQUIREMENTS.md ## Definition of Done || VERIFICATION.md ## Release Criteria",
+        "fallback": "- Release when automated verification and required manual checks pass."
+      },
+      {
+        "heading": "Stakeholder Review & Approval",
+        "enabled": true,
+        "template": "- Product owner approval pending for {phase_name}."
+      }
+    ]
+  },
+  "open_questions": [
+    {
+      "id": "Q1",
+      "question": "FastAPI 作为 ingress 层时，对 Anthropic SSE event ordering 与 backpressure 的实现复杂度是否可接受？",
+      "status": "needs-spike"
+    },
+    {
+      "id": "Q2",
+      "question": "LiteLLM 是否足以承载 v1 所需的 provider adapter 能力，尤其是 streaming、usage 提取和错误归一化？",
+      "status": "needs-spike"
+    },
+    {
+      "id": "Q3",
+      "question": "session ledger 在 v1 采用纯内存还是可插拔持久化接口？",
+      "status": "defer-to-phase-3"
+    }
+  ]
+}
