@@ -14,9 +14,14 @@ advisor model 负责提供架构判断、风险评估、方案审查和验证建
 
 Advisor Mode 的思想可追溯到多类 Agent 研究与系统设计：
 
-- Anthropic Advisor Tool：将按需咨询强模型的模式产品化为 server-side tool。
+- [Anthropic Advisor Tool](https://claude.com/blog/the-advisor-strategy)：将按需咨询强模型的模式产品化为 server-side tool。
 - ReAct：提出推理与行动交替的 Agent 框架，为 executor 主循环提供基础范式。
 - Toolformer：研究模型如何自主决定何时调用工具，以及如何整合工具结果。
 - Reflexion：强调 Agent 通过反馈与反思改进后续决策。
 
 这些工作共同支撑了 Advisor Mode 的核心思想：让 Agent 在执行过程中具备自我监控、按需求助和反馈修正的能力。
+
+## 参考文档
+
+- [The advisor strategy: Give agents an intelligence boost](https://claude.com/blog/the-advisor-strategy)
+- [Advisor tool | Claude API Docs](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool)
